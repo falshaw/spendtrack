@@ -1,0 +1,48 @@
+# Statement-parser sidecar: HTTP front end for the Python bank-statement parsers.
+# Kept out of the Next.js image on purpose — the app image stays node-only.
+#
+# 2-stage: pip and any build toolchain stay in `builder`; `runner` receives only
+# the finished virtualenv.
+FROM python:3.12.16-slim@sha256:b18b261e1b4974b4f321451ad5251ded85abb22c2b8b262da527dda1d031ab30 AS base
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+# OS security patches on top of the pinned base
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
+# ── builder: resolve + install into a self-contained venv ──
+FROM base AS builder
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# The LOCK, not the .txt: every package (45, transitive included) pinned with its
+# sha256, so a re-tagged or tampered wheel fails the build instead of shipping.
+# Regenerate after editing parser-requirements.txt - the command is in that file.
+COPY scripts/parser-requirements.lock /tmp/requirements.lock
+RUN pip install --no-cache-dir --require-hashes -r /tmp/requirements.lock
+
+# ── runner: venv + the parser files, nothing else ──
+FROM base AS runner
+
+ENV PATH="/opt/venv/bin:$PATH"
+
+WORKDIR /srv
+
+COPY --from=builder /opt/venv /opt/venv
+
+# Only the parser code — no app source, no .env, no node_modules.
+COPY scripts/parse_statements.py scripts/statement_service.py scripts/bank_detect.py scripts/l10n_keywords.py ./
+
+RUN groupadd --system --gid 1001 parser && \
+    useradd --system --uid 1001 --gid parser --no-create-home parser
+USER parser
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+  CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=5).status==200 else 1)"
+
+CMD ["uvicorn", "statement_service:app", "--host", "0.0.0.0", "--port", "8000"]

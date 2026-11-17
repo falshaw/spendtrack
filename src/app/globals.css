@@ -1,0 +1,223 @@
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+/*
+ * Sunset theme — coral clay, sea green and olive on warm cream; Plus Jakarta Sans.
+ * Tokens here; the shared pieces are restyled in the sheets imported by src/app/layout.tsx:
+ *   sunset-content.css  headings, pills, buttons, form controls, tables (unlayered)
+ *   bento.css           coloured card grids (opt in with `bento` / `bento-flat`)
+ *   app-shell.css       the floating rounded top bar
+ *   app-hero.css        the sunset title band every app page opens with
+ *   dashboard.css       the bold dashboard (scoped under .sunset)
+ */
+:root {
+  --cream: #fff8f1;
+  --sand: #fbeee2;
+  --paper: #ffffff;
+  --ink: #26181b;
+  --ink-soft: #4a3438;
+  --ink-muted: #7a6467;
+  --clay: #ff6b4a;
+  --clay-deep: #c8401f;
+  --clay-light: #ff8e5e;
+  /* clay as TEXT — plain --clay is ~2.9:1 on white; this one is 5.5:1 */
+  --clay-text: #c8401f;
+  --olive: #5f7a3c;
+  --olive-light: #8aa060;
+  --sea: #1f6f78;
+  --sea-deep: #155259;
+  --gold: #ffc38a;
+  --rose: #c94a63;
+  --line: #f2e3d6;
+  /* money semantics */
+  --accent-green: #4f6b2e;
+  --accent-green-light: #8aa060;
+  --accent-orange: #c8401f;
+  --accent-red: #b5344f;
+  --text-primary: #26181b;
+  --text-secondary: #4a3438;
+  --text-muted: #7a6467;
+}
+
+/* Text-safe colour utilities (text-clay-text) — the accent hues stay for fills. */
+@theme inline {
+  --color-clay-text: var(--clay-text);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sunset), system-ui, sans-serif;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(60rem 40rem at 90% -10%, rgba(255, 142, 94, 0.12), transparent 60%),
+    radial-gradient(50rem 40rem at -10% 10%, rgba(31, 111, 120, 0.06), transparent 55%);
+  background-attachment: fixed;
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-sunset), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+::selection {
+  background: rgba(255, 107, 74, 0.22);
+}
+
+/* Component classes live in the components layer so a Tailwind utility on the same
+   element wins (an un-layered `.input-field` padding beat `pl-9`, so the search icon
+   overlapped the placeholder and the month select was clipped). */
+@layer components {
+/* ---- cards ---- */
+.glass-card {
+  background: var(--paper);
+  border: 1px solid transparent;
+  border-radius: 26px;
+  box-shadow: 0 20px 40px -30px rgba(80, 30, 20, 0.4), 0 1px 0 rgba(242, 227, 214, 0.9);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s ease;
+}
+
+a.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 50px -30px rgba(255, 107, 74, 0.55);
+}
+
+/* Brand wordmark */
+.gradient-text {
+  color: var(--ink);
+}
+
+/* ---- buttons: dark ink primary, white secondary ---- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 16px;
+  font-weight: 800;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  box-shadow: 0 14px 30px -16px rgba(38, 24, 27, 0.75);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #3c1f27;
+  border-color: #3c1f27;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -16px rgba(38, 24, 27, 0.8);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 10px 18px;
+  border-radius: 16px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  box-shadow: inset 0 0 0 1.5px #f0dccb;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--cream);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.55;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* ---- inputs ---- */
+.input-field {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  background-color: var(--paper);
+  border: 1.5px solid #f0dccb;
+  border-radius: 14px;
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--clay);
+  box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.18);
+}
+
+.input-field::placeholder {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+select.input-field option {
+  background: var(--paper);
+  color: var(--ink);
+}
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(38, 24, 27, 0.18);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(38, 24, 27, 0.3);
+}
+
+/* Keyboard focus — visible coral ring on every interactive element (a11y) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--clay-deep);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

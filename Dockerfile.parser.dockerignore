@@ -1,0 +1,13 @@
+# Build context for the parser sidecar only (BuildKit reads <dockerfile>.dockerignore
+# in preference to .dockerignore). The app's .dockerignore excludes scripts/ to keep
+# the Next.js image lean, which would leave this image with no source at all.
+#
+# Allowlist, not a denylist: everything is excluded and the parser files are
+# added back, so no .env, no app source and no node_modules can reach this image.
+*
+!scripts/parse_statements.py
+!scripts/statement_service.py
+!scripts/parser-requirements.txt
+!scripts/parser-requirements.lock
+!scripts/bank_detect.py
+!scripts/l10n_keywords.py

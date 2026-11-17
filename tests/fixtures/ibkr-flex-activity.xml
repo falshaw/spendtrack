@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FICTIONAL Activity Flex report for tests: made-up account, round numbers. -->
+<FlexQueryResponse queryName="Demo Activity" type="AF">
+<FlexStatements count="1">
+<FlexStatement accountId="U0000000" fromDate="20260101" toDate="20260630" period="YearToDate" whenGenerated="20260701;080000">
+<AccountInformation accountId="U0000000" acctAlias="Demo" currency="USD" accountType="Individual" />
+<EquitySummaryInBase>
+<EquitySummaryByReportDateInBase accountId="U0000000" currency="USD" reportDate="20260628" cash="900" stock="4000" total="4900" />
+<EquitySummaryByReportDateInBase accountId="U0000000" currency="USD" reportDate="20260629" cash="950" stock="4000" total="4950" />
+</EquitySummaryInBase>
+<CashReport>
+<CashReportCurrency accountId="U0000000" currency="BASE_SUMMARY" levelOfDetail="BaseCurrency" endingCash="1000" />
+<CashReportCurrency accountId="U0000000" currency="USD" levelOfDetail="Currency" endingCash="1000" />
+</CashReport>
+<OpenPositions>
+<OpenPosition accountId="U0000000" currency="USD" fxRateToBase="1" assetCategory="STK" symbol="DEMO" description="DEMO CORP &amp; CO" position="10" markPrice="200" positionValue="2000" costBasisPrice="150" fifoPnlUnrealized="500" levelOfDetail="SUMMARY" />
+<OpenPosition accountId="U0000000" currency="EUR" fxRateToBase="1.2" assetCategory="STK" symbol="EUFUND" description="EURO FUND ETF" position="25" markPrice="40" positionValue="1000" costBasisPrice="36" fifoPnlUnrealized="100" levelOfDetail="SUMMARY" />
+<OpenPosition accountId="U0000000" currency="USD" fxRateToBase="1" assetCategory="CASH" symbol="EUR.USD" position="5" positionValue="5" levelOfDetail="SUMMARY" />
+</OpenPositions>
+<Trades>
+<Trade accountId="U0000000" currency="USD" fxRateToBase="1" assetCategory="STK" symbol="DEMO" tradeID="1001" dateTime="20260115;143000" tradeDate="20260115" quantity="12" tradePrice="150" ibCommission="-1" buySell="BUY" openCloseIndicator="O" levelOfDetail="EXECUTION" />
+<Trade accountId="U0000000" currency="USD" fxRateToBase="1" assetCategory="STK" symbol="DEMO" tradeID="1002" dateTime="20260310;100500" tradeDate="20260310" quantity="-2" tradePrice="180" ibCommission="-1" buySell="SELL" openCloseIndicator="C" levelOfDetail="EXECUTION" />
+<Trade accountId="U0000000" currency="USD" fxRateToBase="1" assetCategory="OPT" symbol="DEMO 260619C00200000" tradeID="1003" dateTime="20260320;100500" quantity="1" tradePrice="5" levelOfDetail="EXECUTION" />
+<Trade accountId="U0000000" currency="USD" assetCategory="STK" symbol="DEMO" quantity="10" tradePrice="150" levelOfDetail="ORDER" />
+</Trades>
+<CashTransactions>
+<CashTransaction accountId="U0000000" currency="USD" fxRateToBase="1" type="Deposits/Withdrawals" description="CASH RECEIPTS / ELECTRONIC FUND TRANSFERS" dateTime="20260105" amount="5000" transactionID="2001" levelOfDetail="DETAIL" />
+<CashTransaction accountId="U0000000" currency="USD" fxRateToBase="1" type="Deposits/Withdrawals" description="DISBURSEMENT" dateTime="20260401" amount="-500" transactionID="2002" levelOfDetail="DETAIL" />
+<CashTransaction accountId="U0000000" currency="USD" fxRateToBase="1" type="Dividends" symbol="DEMO" description="DEMO CASH DIVIDEND USD 0.50 PER SHARE" dateTime="20260415" amount="5" transactionID="2003" levelOfDetail="DETAIL" />
+<CashTransaction accountId="U0000000" currency="USD" fxRateToBase="1" type="Withholding Tax" symbol="DEMO" description="DEMO CASH DIVIDEND - US TAX" dateTime="20260415" amount="-0.75" transactionID="2004" levelOfDetail="DETAIL" />
+<CashTransaction accountId="U0000000" currency="EUR" fxRateToBase="1.2" type="Payment In Lieu Of Dividends" symbol="EUFUND" description="EUFUND PAYMENT IN LIEU" dateTime="20260520" amount="10" transactionID="2005" levelOfDetail="DETAIL" />
+<CashTransaction accountId="U0000000" currency="USD" fxRateToBase="1" type="Broker Interest Received" description="USD CREDIT INT" dateTime="20260603" amount="1.5" transactionID="2006" levelOfDetail="DETAIL" />
+<CashTransaction accountId="U0000000" currency="BASE_SUMMARY" type="Dividends" dateTime="20260415" amount="5" transactionID="2007" levelOfDetail="SUMMARY" />
+</CashTransactions>
+</FlexStatement>
+</FlexStatements>
+</FlexQueryResponse>

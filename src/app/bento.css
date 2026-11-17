@@ -1,0 +1,76 @@
+/* Bento card grids: a card grid opts in with the class `bento` (coloured tiles, tile 1 coral + tile 4 sea
+   green with white text, some tiles two columns wide so every row is full) or `bento-flat` (coloured
+   tiles only — for cards that hold form controls or dense numbers). UNLAYERED; loaded from
+   src/app/layout.tsx after sunset-content.css. */
+
+/* ── tints: each grid item sets --tint, the card inside (or the item itself) paints it ── */
+body :is(.bento, .bento-flat) > * { --tint: #fff; }
+body :is(.bento, .bento-flat) > :nth-child(6n + 1) { --tint: #ffe9d6; }
+body :is(.bento, .bento-flat) > :nth-child(6n + 2) { --tint: #dff0ee; }
+body :is(.bento, .bento-flat) > :nth-child(6n + 3) { --tint: #fde3e6; }
+body :is(.bento, .bento-flat) > :nth-child(6n + 4) { --tint: #e9efd9; }
+body :is(.bento, .bento-flat) > :nth-child(6n + 5) { --tint: #fff0cc; }
+body .bento > :first-child { --tint: linear-gradient(135deg, #f07a4f, #e2553c 55%, #cf4159); }
+body .bento > :nth-child(4) { --tint: linear-gradient(135deg, #3f8f94, #1f6f78); }
+body :is(.bento, .bento-flat) > .glass-card,
+body :is(.bento, .bento-flat) > * > .glass-card,
+body :is(.bento, .bento-flat) > * > * > .glass-card {
+  background: var(--tint); border-color: transparent; box-shadow: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s;
+}
+body :is(.bento, .bento-flat) > :nth-child(6n) > .glass-card,
+body :is(.bento, .bento-flat) > :nth-child(6n).glass-card { box-shadow: 0 20px 40px -32px rgba(80, 30, 20, 0.4); }
+body :is(.bento, .bento-flat) :is(a.glass-card, a > .glass-card):hover { transform: translateY(-5px) rotate(-0.5deg); border-color: transparent; box-shadow: 0 26px 44px -30px rgba(80, 30, 20, 0.55); }
+body :is(.bento, .bento-flat) > :nth-child(even) :is(a.glass-card):hover, body :is(.bento, .bento-flat) > :nth-child(even):is(a.glass-card):hover { transform: translateY(-5px) rotate(0.5deg); }
+body :is(.bento, .bento-flat) .text-ink-muted { color: #5e4a4d; }
+body :is(.bento, .bento-flat) .bg-ink\/\[0\.04\], body :is(.bento, .bento-flat) .bg-ink\/\[0\.06\] { background-color: rgba(255, 255, 255, 0.75); }
+body :is(.bento, .bento-flat) .badge { background: rgba(255, 255, 255, 0.75); }
+body :is(.bento, .bento-flat) :is(.bg-sand, .bg-clay\/10, .bg-sea\/10, .bg-olive\/10) { background-color: rgba(255, 255, 255, 0.7); }
+body :is(.bento, .bento-flat) > * > .glass-card, body :is(.bento, .bento-flat) > * > * > .glass-card { height: 100%; }
+
+/* ── the two strong tiles: white text on coral / sea green ── */
+body .bento > :is(:first-child, :nth-child(4)), body .bento > :is(:first-child, :nth-child(4)) .glass-card { color: #fff; }
+body .bento > :is(:first-child, :nth-child(4)) * { color: inherit; }
+body .bento > :is(:first-child, :nth-child(4)) :is(.text-accent-green, .text-accent-orange, .text-clay-deep, .text-ink-muted, .text-ink-soft) { color: #fff; }
+body .bento > :is(:first-child, :nth-child(4)) :is(h2, h3, h4, p) { text-shadow: 0 1px 2px rgba(60, 20, 20, 0.28); }
+body .bento > :is(:first-child, :nth-child(4)) :is(h2, h3, h4) { font-size: 1.35rem; line-height: 1.15; }
+body .bento > :is(:first-child, :nth-child(4)) .badge, body .bento > :is(:first-child, :nth-child(4)) .chip, body .bento > :is(:first-child, :nth-child(4)) :is(.bg-sand, .bg-clay\/10, .bg-sea\/10, .bg-olive\/10, .bg-paper) { background: rgba(255, 255, 255, 0.22); border-color: transparent; color: #fff; }
+body .bento > :is(:first-child, :nth-child(4)) .rounded-full.bg-clay\/10 { background: rgba(255, 255, 255, 0.22); color: #fff; }
+body .bento > :is(:first-child, :nth-child(4)) .btn-primary { background: #fff; border-color: #fff; color: #26181b; }
+body .bento > :is(:first-child, :nth-child(4)) .btn-secondary { background: rgba(255, 255, 255, 0.16); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
+body .bento > :is(:first-child, :nth-child(4)) :is(.border-line, .border-t, .border-b) { border-color: rgba(255, 255, 255, 0.28); }
+body .bento > :is(:first-child, :nth-child(4)) .score-track { background: rgba(255, 255, 255, 0.28); }
+body .bento > :is(:first-child, :nth-child(4)) .score-fill { background: #fff; }
+
+/* ── mixed sizes: which tiles are two columns wide, so that every row is full ── */
+@media (min-width: 1024px) {
+  body .bento.lg\:grid-cols-3 > :first-child:nth-last-child(3n+2) { grid-column: span 2; }
+  body .bento.lg\:grid-cols-3 > :first-child:nth-last-child(3n+4), body .bento.lg\:grid-cols-3 > :last-child:nth-child(3n+4) { grid-column: span 2; }
+  body .bento.lg\:grid-cols-3 > :first-child:nth-last-child(3n+6), body .bento.lg\:grid-cols-3 > :nth-child(4):nth-last-child(3n+3), body .bento.lg\:grid-cols-3 > :last-child:nth-child(3n+6) { grid-column: span 2; }
+  body .bento.lg\:grid-cols-4 > :first-child:nth-last-child(4n+3) { grid-column: span 2; }
+  body .bento.lg\:grid-cols-4 > :first-child:nth-last-child(4n+2), body .bento.lg\:grid-cols-4 > :last-child:nth-child(4n+2) { grid-column: span 2; }
+  body .bento.lg\:grid-cols-4 > :first-child:nth-last-child(4n+5), body .bento.lg\:grid-cols-4 > :nth-child(4):nth-last-child(4n+2), body .bento.lg\:grid-cols-4 > :last-child:nth-child(4n+5) { grid-column: span 2; }
+}
+@media (min-width: 768px) {
+  body .bento.md\:grid-cols-3 > :first-child:nth-last-child(3n+2) { grid-column: span 2; }
+  body .bento.md\:grid-cols-3 > :first-child:nth-last-child(3n+4), body .bento.md\:grid-cols-3 > :last-child:nth-child(3n+4) { grid-column: span 2; }
+  body .bento.md\:grid-cols-3 > :first-child:nth-last-child(3n+6), body .bento.md\:grid-cols-3 > :nth-child(4):nth-last-child(3n+3), body .bento.md\:grid-cols-3 > :last-child:nth-child(3n+6) { grid-column: span 2; }
+  body .bento.md\:grid-cols-2:not([class*="lg:grid-cols"]) > :first-child:nth-last-child(2n+3) { grid-column: span 2; }
+}
+@media (min-width: 640px) {
+  body .bento.sm\:grid-cols-3 > :first-child:nth-last-child(3n+2) { grid-column: span 2; }
+  body .bento.sm\:grid-cols-3 > :first-child:nth-last-child(3n+4), body .bento.sm\:grid-cols-3 > :last-child:nth-child(3n+4) { grid-column: span 2; }
+  body .bento.sm\:grid-cols-3 > :first-child:nth-last-child(3n+6), body .bento.sm\:grid-cols-3 > :nth-child(4):nth-last-child(3n+3), body .bento.sm\:grid-cols-3 > :last-child:nth-child(3n+6) { grid-column: span 2; }
+  body .bento.sm\:grid-cols-2:not([class*="lg:grid-cols"]) > :first-child:nth-last-child(2n+3) { grid-column: span 2; }
+}
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  body .bento.md\:grid-cols-2[class*="lg:grid-cols"] > :first-child:nth-last-child(2n+3) { grid-column: span 2; }
+}
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  body .bento.sm\:grid-cols-2[class*="lg:grid-cols"] > :first-child:nth-last-child(2n+3) { grid-column: span 2; }
+}
+
+@media print {
+  body :is(.bento, .bento-flat) .glass-card { background: #fff; color: #000; }
+  body .bento > :is(:first-child, :nth-child(4)) * { color: #000; text-shadow: none; }
+}

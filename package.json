@@ -1,0 +1,62 @@
+{
+  "name": "spendtrack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "eslint .",
+    "db:push": "npx prisma db push",
+    "db:migrate": "npx prisma migrate dev",
+    "db:studio": "npx prisma studio",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:generate": "npx prisma generate",
+    "typecheck": "npx tsc --noEmit",
+    "fx:update": "node scripts/update-fx.mjs",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:parser": "python -m pytest tests/parser -q",
+    "test:live": "tsx scripts/smoke-live.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.2.2",
+    "lucide-react": "^1.51.0",
+    "next": "~16.4.6",
+    "pg": "^8.23.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "recharts": "^3.10.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitest/coverage-v8": "^5.0.3",
+    "dotenv": "^17.4.2",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.4.6",
+    "prisma": "^7.10.1",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "overrides": {
+    "deepmerge-ts": "^8.0.1",
+    "mysql2": "^3.24.3",
+    "fast-uri": "^3.1.9",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.5"
+    }
+  }
+}

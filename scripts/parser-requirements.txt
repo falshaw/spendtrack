@@ -1,0 +1,26 @@
+# Statement-parser sidecar (scripts/statement_service.py).
+#
+# This file is the INPUT. The image installs parser-requirements.lock (hash-pinned,
+# --require-hashes). After any edit here, regenerate the lock in the SAME base image
+# (from the repo root, bash):
+#   docker run --rm -v "$PWD/scripts:/w" -w /w <the FROM line's image@digest> sh -c \
+#     "pip install -q pip-tools && pip-compile --generate-hashes --allow-unsafe \
+#      --strip-extras -o parser-requirements.lock parser-requirements.txt"
+# then rebuild and run `npm run test:parser` + the three /parse fixtures.
+#
+# Pinned: a silent parser regression from a floating dependency is indistinguishable
+# from a missing month of transactions.
+#
+# The web layer is bumped past older pins that pulled starlette 0.41.3,
+# which predates the multipart-DoS fixes. starlette is pinned EXPLICITLY — fastapi only
+# asks for >=0.46.0, so leaving it transitive lets the next build float it.
+# The parsing libraries below the line are deliberately NOT bumped: every parser was
+# reconciled against real statements on exactly these versions.
+fastapi==0.142.2
+starlette==1.7.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+httpx==0.28.1
+# ── parsers validated on these — bump only with a full re-reconcile ──
+pdfplumber==0.11.10
+markitdown[pdf]==0.1.8

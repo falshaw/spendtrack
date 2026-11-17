@@ -1,0 +1,94 @@
+/* App page title band: every app page wraps its h1 + subtitle (+ page actions) in
+   <div className="app-hero">. Sunset sky gradient, sun glow top right, sea strip at the bottom.
+   UNLAYERED on purpose: it has to beat the Tailwind text/bg utilities the wrapped markup carries. */
+.app-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin-bottom: 28px;
+  padding: 28px 28px 58px;
+  border-radius: 30px;
+  color: #fff;
+  background: linear-gradient(180deg, #f9945e 0%, #f2774a 30%, #e85a3c 62%, #d9465c 100%);
+  box-shadow: 0 24px 50px -34px rgba(120, 30, 30, 0.55);
+}
+@media (min-width: 768px) { .app-hero { padding: 34px 40px 62px; } }
+/* sun glow, top right */
+.app-hero::before {
+  content: ""; position: absolute; z-index: -1; right: 6%; top: -30px; width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 231, 181, 0.55), rgba(255, 215, 154, 0) 65%); pointer-events: none;
+}
+/* sea strip at the bottom */
+.app-hero::after {
+  content: ""; position: absolute; z-index: -1; left: 0; right: 0; bottom: 0; height: 26px; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(185, 70, 96, 0.55) 0 6px, transparent 6px),
+    repeating-linear-gradient(90deg, transparent 0 60px, rgba(191, 225, 224, 0.35) 60px 110px, transparent 110px 190px) 0 15px / 100% 2px no-repeat,
+    linear-gradient(180deg, #1f6f78, #1a5f66);
+}
+.app-hero > :last-child { margin-bottom: 0; }
+
+/* text */
+.app-hero h1 {
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.app-hero h1, .app-hero p { text-shadow: 0 1px 2px rgba(90, 20, 20, 0.28); }
+.app-hero .text-ink, .app-hero .text-ink-soft { color: #fff; }
+.app-hero .text-ink-muted { color: #fff3e4; }
+.app-hero p { color: rgba(255, 255, 255, 0.95); }
+.app-hero .text-clay, .app-hero .text-clay-deep, .app-hero .text-clay-text,
+body .app-hero :is(.text-sm, .text-xs):is(.text-clay, .text-clay-deep), body .app-hero .link { color: #fff; }
+.app-hero a:where(:not(.btn-primary, .btn-secondary)) { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.6); }
+.app-hero a:where(:not(.btn-primary, .btn-secondary)):hover { color: #fff; text-decoration: underline; }
+
+/* small pieces inside the band */
+.app-hero .badge { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.45); color: #fff; }
+.app-hero .bg-clay\/10 { background: rgba(255, 255, 255, 0.2); color: #fff; }
+.app-hero .bg-paper { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.6); color: #fff; }
+.app-hero .bg-paper:hover { background: rgba(255, 255, 255, 0.26); }
+.app-hero .btn-primary { background: #fff; color: #26181b; border-color: #fff; box-shadow: 0 12px 26px -14px rgba(80, 20, 20, 0.55); }
+.app-hero .btn-primary:hover { background: #fff; color: #26181b; }
+.app-hero .btn-secondary { background: rgba(255, 255, 255, 0.16); color: #fff; border-color: transparent; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
+.app-hero .btn-secondary:hover { background: rgba(255, 255, 255, 0.26); color: #fff; }
+
+@media print { .app-hero { background: none; color: inherit; box-shadow: none; padding: 0; } .app-hero::before, .app-hero::after { display: none; } .app-hero h1, .app-hero p { color: #000; text-shadow: none; } }
+
+/* App band motion : the sun glow breathes and the wave dashes drift along the sea strip. */
+.app-hero::before { animation: app-sun 5s ease-in-out infinite; }
+.app-hero::after { animation: app-sea 9s linear infinite; }
+@keyframes app-sun { 50% { opacity: 0.6; } }
+@keyframes app-sea { to { background-position: 0 0, 190px 15px, 0 0; } }
+@media (prefers-reduced-motion: reduce) { .app-hero::before, .app-hero::after { animation: none; } }
+
+/* a boxed header inside the band is plain */
+.app-hero > header { background: none; border: 0; padding: 0; box-shadow: none; border-radius: 0; }
+
+/* controls that sit in the band (month picker, search) stay white and readable */
+.app-hero .input-field { background-color: #fff; border-color: transparent; color: #26181b; text-shadow: none; }
+.app-hero .text-xs, .app-hero .text-sm { color: rgba(255, 255, 255, 0.95); }
+.app-hero code { background: rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0 4px; }
+
+/* PageHero layout (src/components/PageHero.tsx) */
+.app-hero-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; }
+.app-hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #fff3e4; }
+.app-hero-eyebrow::before { content: ""; width: 26px; height: 2px; border-radius: 2px; background: #fff3e4; }
+.app-hero .app-hero-sub { margin-top: 10px; max-width: 68ch; font-size: 15px; line-height: 1.6; font-weight: 500; }
+.app-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.app-hero .app-hero-eyebrow { text-shadow: 0 1px 2px rgba(90, 20, 20, 0.28); }
+
+/* scope switch in the band: white segmented pills */
+.hero-seg { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-top: 18px; padding: 4px; border-radius: 18px; background: rgba(255, 255, 255, 0.16); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35); }
+.hero-seg a, .hero-seg button { display: inline-flex; align-items: center; gap: 6px; border-radius: 14px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: #fff; text-shadow: none; }
+.hero-seg a:hover, .hero-seg button:hover { background: rgba(255, 255, 255, 0.14); text-decoration: none; }
+.hero-seg [aria-current="true"] { background: #fff; color: #26181b; font-weight: 800; box-shadow: 0 8px 18px -10px rgba(80, 20, 20, 0.6); }
+/* controls in the band keep dark text on white (beats the .text-sm/.text-xs white rule above) */
+.app-hero .input-field.input-field, .app-hero select.input-field { background-color: #fff; border-color: transparent; color: #26181b; text-shadow: none; }
+.app-hero .btn-primary.btn-primary { background: #fff; color: #26181b; border-color: #fff; text-shadow: none; }
+.app-hero .btn-secondary.btn-secondary { background: rgba(255, 255, 255, 0.16); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); text-shadow: none; }
+.hero-seg { flex-wrap: nowrap; max-width: 100%; overflow-x: auto; }
+@media (max-width: 480px) { .hero-seg a, .hero-seg button { padding: 8px 11px; } }

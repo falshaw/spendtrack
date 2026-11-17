@@ -1,0 +1,114 @@
+/* Sunset content styles for every page: headings, pills, buttons, form controls, tables, bars.
+   UNLAYERED on purpose so it beats the Tailwind utilities the markup carries (font-medium, text-ink-soft,
+   bg-ink/[0.04] …) and the layered component rules in globals.css. Loaded from src/app/layout.tsx. */
+
+/* ── brand mark ───────────────────────────────────────────────────────────── */
+.app-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.03em; color: #26181b; }
+.app-brand-mark {
+  width: 32px; height: 32px; flex: 0 0 32px; border-radius: 11px;
+  background:
+    linear-gradient(180deg, transparent 0 68%, #1f6f78 68% 100%),
+    radial-gradient(circle at 50% 60%, #fff3d6 0 6px, transparent 6.5px),
+    linear-gradient(180deg, #ff9d68, #e2506a);
+  box-shadow: 0 8px 18px -10px rgba(226, 80, 106, 0.9);
+}
+
+/* ── type ─────────────────────────────────────────────────────────────────── */
+body :is(h2, h3, h4) { font-weight: 800; letter-spacing: -0.03em; color: #26181b; }
+/* card titles were small grey labels (text-sm text-ink-soft); in Sunset they are bold ink headings */
+body .glass-card > h2.text-sm, body .glass-card h2.text-sm, body .glass-card > div > h2.text-sm { font-size: 1.02rem; color: #26181b; }
+body .glass-card h3.text-sm { color: #26181b; }
+body .eyebrow { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #c8401f; }
+
+/* ── pills ────────────────────────────────────────────────────────────────── */
+body .pill, body .rounded-full.bg-clay\/10 {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #ffe6db; color: #b5371a; border-color: transparent;
+  font-weight: 800; letter-spacing: 0.04em;
+}
+body .rounded-full.bg-sea\/10 { background: #e2f0ee; color: #155259; font-weight: 800; }
+body .rounded-full.bg-olive\/10, body .rounded-full.bg-accent-green\/10 { background: #ecf0df; color: #3f5524; font-weight: 800; }
+
+/* ── tints ────────────────────────────────────────────────────────────────── */
+body .bg-clay\/10 { background-color: #ffe6db; }
+body .bg-sea\/10 { background-color: #e2f0ee; }
+body .bg-olive\/10 { background-color: #ecf0df; }
+body .bg-gold\/10 { background-color: #fff3e0; }
+body .bg-gold\/20 { background-color: #ffe9cc; }
+body .bg-accent-orange\/10 { background-color: #ffe6db; }
+body .bg-accent-green\/20 { background-color: #e6edd8; }
+body .bg-sand, body .bg-sand\/60 { background-color: #fbeee2; }
+body .bg-ink\/\[0\.04\], body .bg-ink\/\[0\.06\] { background-color: #f8e6d8; }
+body .border-line { border-color: #f2e3d6; }
+body .border-gold\/40 { border-color: #ffd7a8; }
+
+/* ── buttons ──────────────────────────────────────────────────────────────── */
+body .btn-primary.text-sm, body .btn-secondary.text-sm { padding: 9px 16px; }
+body button.text-clay-deep, body a.text-clay-deep { font-weight: 800; }
+
+/* ── form controls ────────────────────────────────────────────────────────── */
+body select.input-field, body select {
+  appearance: none; padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1.5l5 5 5-5' fill='none' stroke='%23ff6b4a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 11px;
+}
+body textarea { border-radius: 14px; }
+body label { font-weight: 600; }
+body input[type="checkbox"], body input[type="radio"] {
+  appearance: none; display: inline-grid; place-content: center; width: 20px; height: 20px; flex: 0 0 20px; margin: 0;
+  border: 1.5px solid #e6cdb9; border-radius: 7px; background: #fff; cursor: pointer; vertical-align: middle;
+  transition: background 0.15s, border-color 0.15s;
+}
+body input[type="radio"] { border-radius: 50%; }
+body input[type="checkbox"]:hover, body input[type="radio"]:hover { border-color: #ff8e5e; }
+body input[type="checkbox"]:checked, body input[type="radio"]:checked {
+  border-color: transparent; background: linear-gradient(135deg, #ff6b4a, #e2506a);
+}
+body input[type="checkbox"]:checked::after {
+  content: ""; width: 6px; height: 10px; margin-top: -2px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+}
+body input[type="radio"]:checked::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+body input[type="checkbox"]:focus-visible, body input[type="radio"]:focus-visible { outline: 2px solid #ff6b4a; outline-offset: 2px; }
+body input[type="range"] { accent-color: #ff6b4a; }
+body input[type="color"] { border-radius: 10px; border: 1.5px solid #f0dccb; background: #fff; }
+
+/* ── tables ───────────────────────────────────────────────────────────────── */
+body th {
+  font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #c8401f;
+}
+body thead tr { background: #fff8f1; }
+body :is(th, td, tr) { border-color: #f2e3d6; }
+body tbody tr { transition: background 0.15s; }
+body tbody tr:hover { background: #fff3ea; }
+body .divide-line > * + * { border-color: #f2e3d6; }
+
+/* ── modal ────────────────────────────────────────────────────────────────── */
+body [role="dialog"] .glass-card, body .modal-panel { border-radius: 28px; box-shadow: 0 40px 80px -30px rgba(60, 10, 20, 0.55); }
+
+@media print {
+  body th { color: #000; }
+  body .btn-primary { box-shadow: none; }
+}
+
+/* ── login + 404: sunset sky over the top, sea strip, cream below ─────────── */
+.sun-auth { position: relative; overflow: hidden;
+  background: linear-gradient(180deg, #f9945e 0%, #f2774a 22%, #e85a3c 40%, #d9465c 52%, #1f6f78 52%, #2a7f86 58%, var(--cream) 58%); }
+.sun-auth::before { content: ""; position: absolute; left: 50%; top: 14%; width: 360px; height: 360px; transform: translateX(-50%); border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 231, 181, 0.5), rgba(255, 215, 154, 0) 65%); pointer-events: none; animation: sun-breathe 5s ease-in-out infinite; }
+.sun-auth > * { position: relative; }
+@keyframes sun-breathe { 50% { opacity: 0.62; } }
+.sun-auth-brand { color: #fff; text-shadow: 0 1px 2px rgba(90, 20, 20, 0.3); }
+.sun-auth-tagline { color: #fff7ef; text-shadow: 0 1px 2px rgba(90, 20, 20, 0.35); }
+.sun-auth-grid { display: grid; gap: 1.25rem; align-items: start; width: 100%; max-width: 880px; }
+@media (min-width: 1024px) { .sun-auth-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; } }
+.sun-auth-panel { padding: 1.5rem; border-radius: 26px; background: rgba(255, 252, 247, 0.94);
+  box-shadow: 0 18px 40px -24px rgba(120, 40, 20, 0.35), inset 0 0 0 1px rgba(242, 227, 214, 0.9); }
+.sun-auth-icon { display: grid; place-items: center; width: 38px; height: 38px; flex: 0 0 38px; border-radius: 13px; background: #ffe3d8; color: #c8401f; }
+.sun-auth-panel li:nth-child(2) .sun-auth-icon { background: #d9ecec; color: #1f6f78; }
+.sun-auth-panel li:nth-child(3) .sun-auth-icon { background: #e6ecd9; color: #4f6b2e; }
+.sun-auth-panel li:nth-child(4) .sun-auth-icon { background: #fde9cf; color: #9a5a00; }
+.app-hero-skeleton { min-height: 150px; }
+@media (prefers-reduced-motion: reduce) { .sun-auth::before { animation: none; } }
+
+/* big figures in cards: heavier and tighter, like the dashboard */
+body .glass-card :is(.text-2xl, .text-3xl, .text-xl).font-bold { font-weight: 800; letter-spacing: -0.04em; }
